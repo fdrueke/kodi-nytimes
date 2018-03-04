@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<setting id="videotype" type="enum" label="54351" values="video_240p_mp4|video_360p_mp4|video_480p_mp4|480p_webm|video_1080p_mp4|video_720p_mp4|syndication|hls" default="6"/>
+</settings>
+

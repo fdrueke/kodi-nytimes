@@ -16,6 +16,8 @@ import urllib
 import xbmcaddon
 import json
 from BeautifulSoup import BeautifulSoup
+from xbmcswift2 import Plugin
+
 
 def fetch_video_data(video_id):
         url = "http://www.nytimes.com/svc/video/api/v2/video/" + str(video_id)
@@ -29,8 +31,8 @@ def fetch_video_data(video_id):
 	videos = []
 	for x in range(0,count):
         	videos.append((data["renditions"][x]["fileSize"],data["renditions"][x]["type"],data["renditions"][x]["url"]))
-	video_list = sorted(videos, reverse=True)
-	video_link = video_list[0][2]
+	video_link = videos[videotype][2]
+        #print "video_link: " + video_link
 	try:
                 thumbnail = "http://www.nytimes.com/" + data["images"][5]["url"]
         except:
@@ -55,8 +57,8 @@ def getContent(base_url, sections):
                 for x in holder:
                         sub_name = "".join(part[0])
                         try:
-                                        video_id = x["data-id"]
-                                        content.append((video_id))
+                                video_id = x["data-id"]
+                                content.append((video_id))
                         except KeyError:
                                 print "No Data"
                                 pass
@@ -76,6 +78,10 @@ global sections
 global content
 sections = []
 content = []
+
+plugin = Plugin()
+videotype = plugin.get_setting('videotype', int)
+
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
